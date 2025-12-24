@@ -4,7 +4,7 @@ import { GestureState, ParticleState } from './types';
 export const useStore = create<ParticleState>((set) => ({
   gestureState: GestureState.TREE,
   handScore: 0,
-  userName: "USER",
+  userName: "李响",
   particleCount: 6000,
   demoMode: false,
   setGestureState: (state) => set({ gestureState: state }),

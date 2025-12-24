@@ -15,8 +15,9 @@ export const HandTracker: React.FC = () => {
 
     const setupMediaPipe = async () => {
       try {
+        // Use version 0.10.9 specifically to match package.json dependencies
         const vision = await FilesetResolver.forVisionTasks(
-          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm"
+          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.9/wasm"
         );
         handLandmarker = await HandLandmarker.createFromOptions(vision, {
           baseOptions: {
@@ -48,8 +49,8 @@ export const HandTracker: React.FC = () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ 
           video: {
-            facingMode: "user", // Explicitly request front camera for mobile
-            width: { ideal: 640 }, // Lower resolution for better mobile performance
+            facingMode: "user",
+            width: { ideal: 640 }, 
             height: { ideal: 480 }
           } 
         });
@@ -119,7 +120,6 @@ export const HandTracker: React.FC = () => {
 
         } else {
            // No hand detected
-           // Maintain last state or drift to idle? Let's keep last known or drift to Tree
         }
       }
       
