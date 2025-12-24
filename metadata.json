@@ -1,0 +1,7 @@
+{
+  "name": "Merry Christmas 3D Interactive",
+  "description": "A 3D particle system that morphs between a Christmas tree and text greeting based on hand gestures using MediaPipe.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
