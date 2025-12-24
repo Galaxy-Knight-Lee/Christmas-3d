@@ -14,20 +14,18 @@ export const UI: React.FC = () => {
 
   return (
     <>
-      {/* Header */}
-      <div className="absolute top-0 left-0 w-full p-4 md:p-6 flex justify-between items-start pointer-events-none z-10">
-        <div>
-          <h1 className="text-2xl md:text-4xl text-amber-500 font-bold tracking-widest drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]">
+      {/* Header - Adjusted size for mobile to avoid overlapping camera */}
+      <div className="absolute top-0 left-0 w-full p-4 md:p-6 flex justify-between items-start pointer-events-none z-10 safe-area-top">
+        <div className="max-w-[60%] md:max-w-none">
+          <h1 className="text-xl md:text-4xl text-amber-500 font-bold tracking-widest drop-shadow-[0_0_10px_rgba(245,158,11,0.5)] leading-tight">
             MERRY CHRISTMAS
           </h1>
-          <p className="text-amber-200/60 text-[10px] md:text-sm tracking-widest mt-1 font-mono">
-            INTERACTIVE EXPERIENCE
-          </p>
         </div>
       </div>
 
       {/* Hand Tracker - Top Right on Mobile, Bottom Left on Desktop */}
-      <div className="absolute top-4 right-4 md:top-auto md:right-auto md:bottom-6 md:left-6 z-10 origin-top-right md:origin-bottom-left transform scale-75 md:scale-100">
+      {/* Added pointer-events-auto only to the specific interactive parts if needed, mostly it's just visual */}
+      <div className="absolute top-4 right-4 md:top-auto md:right-auto md:bottom-6 md:left-6 z-10 origin-top-right md:origin-bottom-left transform scale-[0.6] md:scale-100 pointer-events-none">
         <HandTracker />
         
         {/* State Indicator */}
@@ -48,9 +46,9 @@ export const UI: React.FC = () => {
       </div>
 
       {/* Controls - Bottom Right, Collapsible on Mobile */}
-      <div className="absolute bottom-6 right-6 z-20 flex flex-col items-end gap-2">
+      <div className="absolute bottom-6 right-6 z-20 flex flex-col items-end gap-2 pointer-events-auto">
         
-        {/* Toggle Button (Visible mainly on mobile/tablet context, or just to hide UI) */}
+        {/* Toggle Button */}
         <button 
           onClick={() => setControlsOpen(!controlsOpen)}
           className="bg-amber-500/20 hover:bg-amber-500/40 text-amber-500 border border-amber-500/50 rounded-full p-3 backdrop-blur-md transition-all shadow-[0_0_15px_rgba(245,158,11,0.2)]"
@@ -62,7 +60,7 @@ export const UI: React.FC = () => {
 
         {/* Panel */}
         <div className={`
-          w-80 bg-black/90 border border-amber-600/30 p-6 rounded-xl backdrop-blur-md shadow-2xl
+          w-72 md:w-80 bg-black/90 border border-amber-600/30 p-6 rounded-xl backdrop-blur-md shadow-2xl
           transition-all duration-500 ease-in-out origin-bottom-right
           ${controlsOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-90 translate-y-8 pointer-events-none absolute bottom-16'}
         `}>
@@ -88,13 +86,13 @@ export const UI: React.FC = () => {
             {/* Particle Count */}
             <div className="space-y-2">
               <div className="flex justify-between text-xs text-amber-200/70 font-mono">
-                <label>PARTICLES (CPU HEAVY)</label>
+                <label>PARTICLES (CPU)</label>
                 <span className="text-amber-500">{particleCount}</span>
               </div>
               <input 
                 type="range" 
                 min="1000" 
-                max="10000" 
+                max="8000" 
                 step="500"
                 value={particleCount}
                 onChange={(e) => setParticleCount(Number(e.target.value))}
